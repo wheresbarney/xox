@@ -86,8 +86,8 @@ class Game extends React.Component {
             lastClicked: {
                 board: null,
                 index: null
-            }
-
+            },
+            winners: null
         };
     }
 

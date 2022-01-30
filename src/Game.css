@@ -37,6 +37,16 @@ ul {
     background-size: contain;
 }
 
+.inner.winningBoard {
+    background-size: contain;
+    animation:spin 1s linear;
+}
+
+@keyframes spin{
+	from{transform:rotate(0deg)}
+	to{transform:rotate(360deg)}
+}
+
 .inner.o_won {
     background-image: url(./img/pink_comic_o.png);
     background-size: contain;

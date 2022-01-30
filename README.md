@@ -1,4 +1,5 @@
-Images generated at [CoolText](https://cooltext.com/Logo-Design-Easy)
+* Images generated at [CoolText](https://cooltext.com/Logo-Design-Easy)
+* Early draft on [CodePen](https://codepen.io/barney-moss/pen/dyVKKpr?editors=0111)
 
 ---
 
