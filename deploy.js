@@ -7,12 +7,11 @@ var config = {
     // password: "password",
     host: "ftp.wheresbarney.com",
     port: 21,
-    localRoot: __dirname,
-    remoteRoot: "/xox/",
-    // include: ["*", "**/*"],      // this would upload everything except dot files
-    include: ["package.json", "public/**", "src/**"],
+    localRoot: __dirname + "/build",
+    remoteRoot: "/public_html/xox/",
+    include: ["*", "**/*"],      // this would upload everything except dot files
     // e.g. exclude sourcemaps, and ALL files in node_modules (including dot files)
-    exclude: ["build/**", "node_modules/**", "node_modules/**/.*", ".git/**"],
+    // exclude: ["dist/**/*.map", "node_modules/**", "node_modules/**/.*", ".git/**"],
     // delete ALL existing files at destination before uploading, if true
     deleteRemote: false,
     // Passive mode is forced (EPSV command is not sent)

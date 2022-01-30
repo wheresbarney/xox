@@ -18,7 +18,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "node deploy",
-    "deploy_static": "node deploy_static"
+    "deploy_static": "node deploy"
   },
   "eslintConfig": {
     "extends": [
