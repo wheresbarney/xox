@@ -5,8 +5,11 @@ import pink_o from './img/small_pink_comic_o.png';
 
 /*
 Bugs
-1. Winner confetti
-2. Game draw detector
+1. Game draw detector
+2. Optimise for mobile
+3. It's completely broken in mobile safari
+4. Instructions!
+5. Tests
 */
 
 class WinState {
@@ -201,11 +204,9 @@ class Game extends React.Component {
 
     render() {
 
-        let status;
+        let status = "Next player: " + (this.state.xIsNext ? "X" : "O");
         if (this.state.winners) {
             status = "Winner: " + (this.state.wins[this.state.winners[0]] === WinState.X_WON ? "X" : "O");
-        } else {
-            status = "Next player: " + (this.state.xIsNext ? "X" : "O");
         }
 
         const boards = [];
