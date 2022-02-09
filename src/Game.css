@@ -3,19 +3,22 @@ body {
     margin: 20px;
 }
 
-ol,
-ul {
-    padding-left: 30px;
+.game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+ .game-info > button {
+    background: #fff;
+    border: 0px;
 }
 
 .board-row:after {
     clear: both;
     content: "";
     display: table;
-}
-
-.status {
-    margin-bottom: 10px;
 }
 
 .outer {
@@ -65,6 +68,12 @@ ul {
     text-align: center;
 }
 
+.cell > img {
+    width: 24px;
+    height: 24px;
+    object-fit: scale-down;
+}
+
 .x_won > .cell,
 .o_won > .cell,
 .draw > .cell {
@@ -92,13 +101,4 @@ ul {
 
 .kbd-navigation .cell:focus {
     background: #ddd;
-}
-
-.game {
-    display: flex;
-    flex-direction: row;
-}
-
-.game-info {
-    margin-left: 20px;
 }

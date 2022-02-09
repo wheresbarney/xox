@@ -1,7 +1,13 @@
 import React from 'react';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
 import './Game.css';
-import blue_x from './img/small_blue_comic_x.png';
-import pink_o from './img/small_pink_comic_o.png';
+import x_mark from './img/small_blue_comic_x.png';
+import o_mark from './img/small_pink_comic_o.png';
+import question_mark from './img/green_small_question.png';
+import rewind_mark from './img/red_rewind.png';
+import fast_fwd_mark from './img/green_fast_forward.png';
+import logo from './img/eXtreme_nOughts_crOsses.png';
 
 /*
 Bugs
@@ -10,6 +16,7 @@ Bugs
 3. It's completely broken in mobile safari
 4. Instructions!
 5. Tests
+6. Migrate pop-up to MUI
 */
 
 class WinState {
@@ -30,7 +37,7 @@ function Square(props) {
 
     let display = null;
     if (props.value) {
-        display = <img src={props.value === "X" ? blue_x : pink_o} alt={props.value}/>
+        display = <img src={props.value === "X" ? x_mark : o_mark} alt={props.value}/>
     }
     return (
         <button className={className} onClick={props.onClick}>
@@ -204,9 +211,22 @@ class Game extends React.Component {
 
     render() {
 
-        let status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+        let status = (
+            <div>
+                <div>Next player</div>
+                <img src={this.state.xIsNext ? x_mark : o_mark} alt={this.state.xIsNext ? "X" : "O"}/>
+            </div>
+        );
         if (this.state.winners) {
-            status = "Winner: " + (this.state.wins[this.state.winners[0]] === WinState.X_WON ? "X" : "O");
+            status = (
+                <div>
+                    Winner:
+                    <img
+                        src={this.state.wins[this.state.winners[0]] === WinState.X_WON ? x_mark : o_mark}
+                        alt={this.state.wins[this.state.winners[0]] === WinState.X_WON ? "X" : "O"}
+                    />;
+                </div>
+            );
         }
 
         const boards = [];
@@ -227,14 +247,49 @@ class Game extends React.Component {
                 />
             );
         }
+
         return (
             <div className="game">
-                <div className="outer">{boards}</div>
-                <div className="game-info">
-                    <div>{status}</div>
-                    <button onClick={() => this.reset()}>Reset</button>
-                    <button onClick={() => this.generateTestLayout()}>Dummy Game</button>
+                <div className="logo">
+                    <img src={logo} alt="logo: eXtreme nOughts and crOsses"/>
                 </div>
+                <div className="game-info">
+                    <button onClick={() => this.reset()}><img src={rewind_mark} alt="reset"/></button>
+                    <button onClick={(event) => this.setState({anchorEl: event.currentTarget})}>
+                        <img src={question_mark} alt="help"/>
+                    </button>
+                    <Popover
+                        id="instructions-popover"
+                        open={Boolean(this.state.anchorEl)}
+                        anchorEl={this.state.anchorEl}
+                        onClose={() => this.setState({anchorEl: null})}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}>
+                        <Typography sx={{ p: 2 }}>
+                            eXtreme nOughts and crOsses
+                        </Typography>
+                        <Typography sx={{ p: 2 }}>
+                            It's just noughts and crosses, but you're playing on two levels at the same time — the main game, and nine mini-games.
+                            You win the main game by winning on three mini-games in a row (again: up/down, left/right, or diagonal).
+                            Each mini-game is just regular noughts and crosses — you win by placing three in a row (up/down, left/right, or diagonal).
+                            Each turn, only one mini-game is activated. The square you play in the active mini-game determines the next mini-game to be activated — play the bottom left square in the current mini-game, and your opponent will have to play on the bottom left mini-game.
+                            Play the middle square on your mini-game, and send your opponent to the centre mini-game next.
+                            Beware — if you send your opponent to a mini-game that's already been won, then every mini-games is unlocked for the next turn.
+                            Inspired by the game Extreme Tic Tac Toe, from the book <a href="https://smile.amazon.co.uk/Math-Bad-Drawings-Illuminating-Reality/dp/0316509035/ref=sr_1_1?crid=DYNG16GQEM7Q&keywords=Math+with+Bad+Drawings&qid=1643926706&s=books&sprefix=math+with+bad+drawings%2Cstripbooks%2C201&sr=1-1">Math with Bad Drawings</a> by Ben Orlin.
+                        </Typography>
+                    </Popover>
+                    <button onClick={() => this.generateTestLayout()}>
+                        <img src={fast_fwd_mark} alt="dummy game"/>
+                    </button>
+                    <div>{status}</div>
+                </div>
+                <div className="outer">{boards}</div>
             </div>
         );
     }
